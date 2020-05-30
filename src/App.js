@@ -60,8 +60,8 @@ function App() {
 		<div className="page">
 			<Header />
 			<div className="search grid">
-				{gifs.map((gif) => (
-					<Gif key={gif.id} {...gif} />
+				{gifs.map((gif, index) => (
+					<Gif key={index} {...gif} />
 				))}
 
 				<input
