@@ -39,13 +39,20 @@ function App() {
 			)
 			const { data } = await response.json() // data.data
 
+			if (!data.length) {
+				throw new Error(`Nothing found for ${searchTerm}`)
+			}
+
 			// console.log(data[0].images.original.mp4)
 			const randomGif = randomChoice(data)
 
 			setGifs([...gifs, randomGif])
 
 			setLoading(false)
-		} catch (error) {}
+		} catch (error) {
+			setLoading(false)
+			setHintText(error.message)
+		}
 	}
 
 	const handleChange = (event) => {
