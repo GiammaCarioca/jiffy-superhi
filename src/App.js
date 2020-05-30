@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { API_KEY } from './config'
 
 import loader from './images/loader.svg'
@@ -82,9 +82,11 @@ function App() {
 		setSearchTerm('')
 		setHintText('')
 		setGifs([])
+		textInput.current.focus()
 	}
 
 	const hasResults = gifs.length
+	const textInput = useRef()
 
 	return (
 		<div className="page">
@@ -102,6 +104,7 @@ function App() {
 					onChange={(event) => handleChange(event)}
 					onKeyPress={(event) => handleKeyPress(event)}
 					value={searchTerm}
+					ref={textInput}
 				/>
 			</div>
 
