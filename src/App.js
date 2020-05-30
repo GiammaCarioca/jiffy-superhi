@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { API_KEY } from './config'
 import loader from './images/loader.svg'
 
+const randomChoice = (arr) => {
+	const randIndex = Math.floor(Math.random() * arr.length)
+	return arr[randIndex]
+}
+
 const Header = () => (
 	<div className="header grid">
 		<h1 className="title">Jiffy</h1>
@@ -30,7 +35,10 @@ function App() {
 			)
 			const { data } = await response.json() // data.data
 
-			setGif(data[0].images.original.mp4)
+			// console.log(data[0].images.original.mp4)
+			const randomGif = randomChoice(data).images.original.mp4
+
+			setGif(randomGif)
 		} catch (error) {}
 	}
 
