@@ -49,6 +49,7 @@ function App() {
 			setGifs([...gifs, randomGif])
 
 			setLoading(false)
+			setHintText(`Hit enter to see more ${searchTerm}`)
 		} catch (error) {
 			setLoading(false)
 			setHintText(error.message)
