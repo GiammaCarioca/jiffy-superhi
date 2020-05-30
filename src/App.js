@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+
+const Header = () => (
+	<div className="header grid">
+		<h1 className="title">Jiffy</h1>
+	</div>
+)
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [searchTerm, setSearchTerm] = useState('')
+
+	const handleChange = (event) => {
+		const { value } = event.target
+		setSearchTerm(value)
+		if (value.length > 2) {
+		}
+	}
+
+	const handleKeyPress = (event) => {
+		const { value } = event.target
+		if (value.length > 2 && event.key === 'Enter') {
+			alert(`search for ${value}`)
+		}
+		console.log(event.key)
+	}
+
+	return (
+		<div className="page">
+			<Header />
+			<div className="search grid">
+				<input
+					type="text"
+					className="input grid-item"
+					placeholder="Type something"
+					onChange={(event) => handleChange(event)}
+					onKeyPress={(event) => handleKeyPress(event)}
+					value={searchTerm}
+				/>
+			</div>
+		</div>
+	)
 }
 
-export default App;
+export default App
