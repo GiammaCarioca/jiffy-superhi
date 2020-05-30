@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { API_KEY } from './config'
+
 import loader from './images/loader.svg'
+import clearButton from './images/close-icon.svg'
+
 import Gif from './Gif'
 
 const randomChoice = (arr) => {
@@ -8,9 +11,15 @@ const randomChoice = (arr) => {
 	return arr[randIndex]
 }
 
-const Header = () => (
+const Header = ({ clearSearch, hasResults }) => (
 	<div className="header grid">
-		<h1 className="title">Jiffy</h1>
+		{hasResults ? (
+			<button onClick={clearSearch}>
+				<img src={clearButton} alt="clear search" />
+			</button>
+		) : (
+			<h1 className="title">Jiffy</h1>
+		)}
 	</div>
 )
 
@@ -69,9 +78,18 @@ function App() {
 		}
 	}
 
+	const clearSearch = () => {
+		setSearchTerm('')
+		setHintText('')
+		setGifs([])
+	}
+
+	const hasResults = gifs.length
+
 	return (
 		<div className="page">
-			<Header />
+			<Header clearSearch={clearSearch} hasResults={hasResults} />
+
 			<div className="search grid">
 				{gifs.map((gif, index) => (
 					<Gif key={index} {...gif} />
