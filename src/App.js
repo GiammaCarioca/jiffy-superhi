@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import loader from './images/loader.svg'
 
 const Header = () => (
 	<div className="header grid">
@@ -6,14 +7,24 @@ const Header = () => (
 	</div>
 )
 
+const UserHint = ({ loading, hintText }) => (
+	<div className="user-hint">
+		{loading ? (
+			<img className="block mx-auto" src={loader} alt="loading..." />
+		) : (
+			hintText
+		)}
+	</div>
+)
+
 function App() {
 	const [searchTerm, setSearchTerm] = useState('')
+	const [hintText, setHintText] = useState('')
 
 	const handleChange = (event) => {
 		const { value } = event.target
 		setSearchTerm(value)
-		if (value.length > 2) {
-		}
+		setHintText(value.length > 2 ? `Hit enter to search ${value}` : '')
 	}
 
 	const handleKeyPress = (event) => {
@@ -37,6 +48,8 @@ function App() {
 					value={searchTerm}
 				/>
 			</div>
+
+			<UserHint hintText={hintText} />
 		</div>
 	)
 }
