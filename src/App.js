@@ -21,15 +21,16 @@ const UserHint = ({ loading, hintText }) => (
 function App() {
 	const [searchTerm, setSearchTerm] = useState('')
 	const [hintText, setHintText] = useState('')
+	const [gif, setGif] = useState({})
 
 	const searchGiphy = async (searchTerm) => {
 		try {
 			const response = await fetch(
 				`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchTerm}&limit=25&offset=0&rating=PG&lang=en`
 			)
-			const data = await response.json()
+			const { data } = await response.json() // data.data
 
-			console.log(data)
+			setGif(data[0].images.original.mp4)
 		} catch (error) {}
 	}
 
@@ -50,6 +51,7 @@ function App() {
 		<div className="page">
 			<Header />
 			<div className="search grid">
+				{gif && <video className="grid-item video" autoPlay loop src={gif} />}
 				<input
 					type="text"
 					className="input grid-item"
