@@ -26,7 +26,7 @@ const UserHint = ({ loading, hintText }) => (
 function App() {
 	const [searchTerm, setSearchTerm] = useState('')
 	const [hintText, setHintText] = useState('')
-	const [gif, setGif] = useState({})
+	const [gifs, setGifs] = useState([])
 
 	const searchGiphy = async (searchTerm) => {
 		try {
@@ -36,9 +36,9 @@ function App() {
 			const { data } = await response.json() // data.data
 
 			// console.log(data[0].images.original.mp4)
-			const randomGif = randomChoice(data).images.original.mp4
+			const randomGif = randomChoice(data)
 
-			setGif(randomGif)
+			setGifs([...gifs, randomGif])
 		} catch (error) {}
 	}
 
@@ -59,7 +59,16 @@ function App() {
 		<div className="page">
 			<Header />
 			<div className="search grid">
-				{gif && <video className="grid-item video" autoPlay loop src={gif} />}
+				{gifs.map((gif) => (
+					<video
+						className="grid-item video"
+						autoPlay
+						loop
+						src={gif.images.original.mp4}
+						key={gif.id}
+					/>
+				))}
+
 				<input
 					type="text"
 					className="input grid-item"
