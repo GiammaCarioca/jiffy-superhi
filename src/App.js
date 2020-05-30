@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { API_KEY } from './config'
 import loader from './images/loader.svg'
+import Gif from './Gif'
 
 const randomChoice = (arr) => {
 	const randIndex = Math.floor(Math.random() * arr.length)
@@ -60,13 +61,7 @@ function App() {
 			<Header />
 			<div className="search grid">
 				{gifs.map((gif) => (
-					<video
-						className="grid-item video"
-						autoPlay
-						loop
-						src={gif.images.original.mp4}
-						key={gif.id}
-					/>
+					<Gif key={gif.id} {...gif} />
 				))}
 
 				<input
