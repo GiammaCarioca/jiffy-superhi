@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { API_KEY } from './config'
 import loader from './images/loader.svg'
 
 const Header = () => (
@@ -21,6 +22,17 @@ function App() {
 	const [searchTerm, setSearchTerm] = useState('')
 	const [hintText, setHintText] = useState('')
 
+	const searchGiphy = async (searchTerm) => {
+		try {
+			const response = await fetch(
+				`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchTerm}&limit=25&offset=0&rating=PG&lang=en`
+			)
+			const data = await response.json()
+
+			console.log(data)
+		} catch (error) {}
+	}
+
 	const handleChange = (event) => {
 		const { value } = event.target
 		setSearchTerm(value)
@@ -30,9 +42,8 @@ function App() {
 	const handleKeyPress = (event) => {
 		const { value } = event.target
 		if (value.length > 2 && event.key === 'Enter') {
-			alert(`search for ${value}`)
+			searchGiphy(value)
 		}
-		console.log(event.key)
 	}
 
 	return (
