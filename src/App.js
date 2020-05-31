@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react'
-import { API_KEY } from './config'
 
 import loader from './images/loader.svg'
 import clearButton from './images/close-icon.svg'
@@ -44,7 +43,7 @@ function App() {
 
 		try {
 			const response = await fetch(
-				`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchTerm}&limit=25&offset=0&rating=PG&lang=en`
+				`https://api.giphy.com/v1/gifs/search?api_key=jps2bL6BidxBdFP1O8LoV4KyafdTHV5n&q=${searchTerm}&limit=25&offset=0&rating=PG&lang=en`
 			)
 			const { data } = await response.json() // data.data
 
